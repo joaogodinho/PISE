@@ -1,0 +1,13 @@
+FROM maven
+
+# Needed for the graph construction
+RUN apt-get update && apt-get install -y \
+    graphviz \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY ./PISEClient /app
+WORKDIR /app
+
+RUN mvn dependency:resolve; mvn compile
+
+ENTRYPOINT mvn exec:java -Dexec.mainClass='com.pise.client.PiseLearner' -Dexec.args='piseserver'

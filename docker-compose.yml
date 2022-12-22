@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  piseclient:
+    build: 
+      dockerfile: dockerfile_client
+    volumes:
+      - ./out:/app/out
+    depends_on:
+      - piseserver
+  piseserver:
+    build:
+      dockerfile: dockerfile_server
+    # Modify to the example you want to run. If using a custom binary, it should
+    # also be available inside the container
+    entrypoint: 'python -m examples.ghost.gh0st_rat_inference'

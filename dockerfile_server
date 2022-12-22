@@ -1,0 +1,8 @@
+FROM python:3.8
+
+COPY ./PISEServer /app
+
+WORKDIR /app
+RUN pip install -r requirements.txt
+
+ENTRYPOINT python -m examples.toy_example.toy_client_inference
